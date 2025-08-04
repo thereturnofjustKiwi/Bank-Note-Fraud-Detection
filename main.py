@@ -6,6 +6,7 @@ from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 import pickle
 from banknote_db import BankNote
+from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
 
