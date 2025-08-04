@@ -1,4 +1,5 @@
 pydantic
+uvicorn
 fastapi
 scikit-learn
 python-multipart
