@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bank Note Predictor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2em;
+      background-color: #f4f4f4;
+    }
+    h1 {
+      color: #333;
+    }
+    input, button {
+      padding: 0.5em;
+      margin: 0.5em 0;
+      width: 300px;
+    }
+    pre {
+      background: #e0e0e0;
+      padding: 1em;
+      white-space: pre-wrap;
+      max-width: 400px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>💵 Bank Note Authentication</h1>
+
+  <section>
+    <h2>Predict</h2>
+    <label>Variance: <input type="number" id="variance" step="any" /></label><br />
+    <label>Skewness: <input type="number" id="skewness" step="any" /></label><br />
+    <label>Curtosis: <input type="number" id="curtosis" step="any" /></label><br />
+    <label>Entropy: <input type="number" id="entropy" step="any" /></label><br />
+    <button onclick="predict()">Predict</button>
+    <pre id="result">Prediction result will appear here...</pre>
+  </section>
+
+  <hr>
+
+  <section>
+    <h2>About</h2>
+    <button onclick="showAuthor()">Show Author Info</button>
+    <pre id="authorResult">Author info will appear here...</pre>
+  </section>
+
+  <script>
+    const BASE_URL = "http://127.0.0.1:8000";  // Change this to Render URL after deployment
+
+    async function predict() {
+      const variance = parseFloat(document.getElementById("variance").value);
+      const skewness = parseFloat(document.getElementById("skewness").value);
+      const curtosis = parseFloat(document.getElementById("curtosis").value);
+      const entropy = parseFloat(document.getElementById("entropy").value);
+
+      if ([variance, skewness, curtosis, entropy].some(isNaN)) {
+        alert("Please fill in all fields correctly.");
+        return;
+      }
+
+      const payload = { variance, skewness, curtosis, entropy };
+
+      try {
+        const res = await fetch(`${BASE_URL}/predict`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        document.getElementById("result").textContent = `Prediction: ${data.prediction}`;
+      } catch (err) {
+        document.getElementById("result").textContent = `Error: ${err}`;
+      }
+    }
+
+    async function showAuthor() {
+      try {
+        const res = await fetch(`${BASE_URL}/about`);
+        const data = await res.json();
+        document.getElementById("authorResult").textContent = data.author;
+      } catch (err) {
+        document.getElementById("authorResult").textContent = `Error: ${err}`;
+      }
+    }
+  </script>
+
+</body>
+</html>
