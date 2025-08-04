@@ -18,6 +18,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+templates = Jinja2Templates(directory="templates")
+
 # Load model
 with open('classifier.pkl', 'rb') as pickle_in:
     classifier = pickle.load(pickle_in)
