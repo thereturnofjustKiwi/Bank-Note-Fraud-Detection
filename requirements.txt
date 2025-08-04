@@ -1,6 +1,6 @@
 pydantic
 uvicorn
 fastapi
-scikit-learn
+scikit-learn = 1.6.0
 python-multipart
 jinja2

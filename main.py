@@ -1,5 +1,6 @@
 import uvicorn
 from fastapi import FastAPI
+from fastapi import Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
@@ -11,7 +12,7 @@ app = FastAPI()
 # CORS for frontend communication
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # For development only; restrict in production
+    allow_origins=["https://bank-note-fraud-detection.onrender.com/"],  # For development only; restrict in production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
