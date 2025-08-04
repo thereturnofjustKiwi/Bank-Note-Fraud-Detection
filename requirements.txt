@@ -3,3 +3,4 @@ uvicorn
 fastapi
 scikit-learn
 python-multipart
+jinja2

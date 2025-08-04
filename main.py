@@ -20,9 +20,9 @@ app.add_middleware(
 with open('classifier.pkl', 'rb') as pickle_in:
     classifier = pickle.load(pickle_in)
 
-@app.get('/')
-def index():
-    return {'data': 'Hello! Welcome to the Bank Note Fraud Detection software!'}
+@app.get("/", response_class=HTMLResponse)
+def get_home(request: Request):
+    return templates.TemplateResponse("predict.html", {"request": request})
 
 @app.post('/predict')
 def predict(data: BankNote):
