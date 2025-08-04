@@ -1,0 +1,5 @@
+pydantic
+fastapi
+pickle
+scikit-learn
+python-multipart
